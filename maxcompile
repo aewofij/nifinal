@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin/javac -cp /Applications/Max\ 6.1/Cycling\ \'74/java/lib/max.jar:. java-classes/*/*.java

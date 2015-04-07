@@ -1,0 +1,25 @@
+---- Runner ----
+# Input
+receive answer from operator
+receive next puzzle from mediator
+
+-- receive other player data from other runner
+
+# Output
+send successful / unsuccessful complete to mediator
+
+-- send arbitrary data to other runner (what color house)
+
+---- Mediator ----
+knows the puzzle sequence
+knows which puzzle we're on (is puzzle repeatable)
+knows who is waiting on current puzzle
+
+# Input
+receive player completed puzzle (filtering after initial event)
+
+# Output
+send go to next puzzle
+
+---- TODO ----
+- create Max patch
