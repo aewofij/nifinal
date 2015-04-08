@@ -62,7 +62,7 @@ public class Referee {
     }
   }
 
-  public void sendNextPuzzle (IPuzzle puzzle) {
+  public void sendNextPuzzle (AbstractPuzzle puzzle) {
     if (leftRunner != null) {
       if (!leftRunner.receiveNextPuzzle(puzzle)) {
         System.err.println("Left runner did not receive puzzle!");

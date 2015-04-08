@@ -10,13 +10,13 @@ public class PuzzleSequence {
   }
 
   // Sets the current puzzle to the next puzzle, and returns that puzzle, or null if at end of puzzle list.
-  public IPuzzle next() {
+  public AbstractPuzzle next() {
     i = i + 1;
     return i >= puzzles.length ? null : puzzles[i];
   } 
 
   // Returns the current puzzle.
-  public IPuzzle current() {
+  public AbstractPuzzle current() {
     return puzzles[i];
   }
 }

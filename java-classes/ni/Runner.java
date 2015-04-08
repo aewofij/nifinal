@@ -14,7 +14,7 @@ public class Runner extends MaxObject {
 
   private State state;
   // Active puzzle.
-  private IPuzzle puzzle;
+  private AbstractPuzzle puzzle;
 
   public Runner (Atom[] args) {
     System.out.println("Initializing ni.Runner...");
@@ -53,7 +53,7 @@ public class Runner extends MaxObject {
   }
 
   // Returns true if successfully set puzzle, else false.
-  public boolean receiveNextPuzzle (IPuzzle puzzle) {
+  public boolean receiveNextPuzzle (AbstractPuzzle puzzle) {
     if (state == State.finished) {
       this.puzzle = puzzle;
       return true;
