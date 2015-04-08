@@ -329,7 +329,7 @@
 											"modernui" : 1
 										}
 ,
-										"rect" : [ 84.0, 129.0, 658.0, 571.0 ],
+										"rect" : [ 223.0, 364.0, 658.0, 571.0 ],
 										"bgcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
 										"editing_bgcolor" : [ 0.239216, 0.254902, 0.278431, 1.0 ],
 										"bglocked" : 0,
@@ -989,9 +989,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 186.0, 83.0, 57.0, 22.0 ],
+									"patching_rect" : [ 186.0, 83.0, 195.0, 22.0 ],
 									"style" : "",
-									"text" : "123.mov"
+									"text" : "123.mov, garbage.mov, wheel.mov"
 								}
 
 							}
@@ -2101,7 +2101,7 @@
 											"modernui" : 1
 										}
 ,
-										"rect" : [ 34.0, 34.0, 640.0, 480.0 ],
+										"rect" : [ 566.0, 521.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,

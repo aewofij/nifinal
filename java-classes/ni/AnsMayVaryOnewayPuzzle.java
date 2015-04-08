@@ -37,6 +37,16 @@ public class AnsMayVaryOnewayPuzzle extends AbstractPuzzle {
     // if (isReceptive) {
 		String eventsub = event.substring(10);
 		if (this.runner.getIdentity()) { //if isLeft (person who creates answer key)
+			String lsubstr = event.substring(0, 9);
+			System.out.println("eventsub length: " + eventsub.length());
+			System.out.println("eventsub: " + eventsub);
+			System.out.println("lsubstr length: " + lsubstr.length());
+			System.out.println("lsubstr: " + lsubstr);
+			if (lsubstr.equals("loadmovie")) {
+				System.out.println("left patch control: " + event);
+				this.runner.firePatchControl(event);
+				
+			}
 			// System.out.println("left receiving input");
 			solution = eventsub;
 			// System.out.println("solution length: " + solution.length());
@@ -64,12 +74,21 @@ public class AnsMayVaryOnewayPuzzle extends AbstractPuzzle {
 			  // System.out.println("right's sol's length: " + solution.length());
 			  // System.out.println("substrsol2's length: " + substrsol2.length());
 			  if (eventsub.equals(solution)) {
-				super.successful();
+				videoFile = "wheel.mov";
+				this.runner.fireAtOtherRunner("loadvideo " + videoFile);
+				System.out.println("fired at other runner");
+				this.runner.firePatchControl("loadvideo " + videoFile);
 				System.out.println("success");
+				super.successful();
+				
+				
 			  }
 			  else {
-			    super.failure();
+			    // super.failure();
 				System.out.println("fail");
+				videoFile = "garbage.mov";
+				this.runner.fireAtOtherRunner("loadvideo " + videoFile);
+				this.runner.firePatchControl("loadvideo " + videoFile);
 			  }
 			}
 		} 
