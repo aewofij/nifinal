@@ -5,7 +5,8 @@ var markers = {
 
 var state = {
   currentVideo: null,
-  lastTime: 0
+  lastTime: 0,
+  enabled: true
 };
 
 function video (name) {
@@ -24,4 +25,8 @@ function time (ms) {
     }
   }
   state.lastTime = ms;
+}
+
+function enable (isEnabled) {
+  enabled = isEnabled ? true : false; // get around duck typing
 }

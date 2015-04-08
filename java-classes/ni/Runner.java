@@ -9,7 +9,7 @@ public class Runner extends MaxObject {
   public final int kPatchControlOutlet = 1;
 
   public enum State {
-    inPuzzle, finished
+    inPuzzle, waiting, won
   };
 
   private State state;
@@ -35,24 +35,29 @@ public class Runner extends MaxObject {
       }
     }
 
-    state = State.finished;
+    state = State.waiting;
   }
 
   public void finishedPuzzle (boolean success) {
     puzzle = null;
-    state = State.finished;
-    fireReferee(success ? "success" : "failure");
+    state = State.waiting;
+    Referee.getInstance().completed(isLeft, success);
   }
 
   /* Receives anything from Max inlet.
    */
   public void anything (String msg, Atom[] args) {
-    if (state == State.finished) {
+    if (state == State.waiting) {
       // do nothing
     } else if (state == State.inPuzzle) {
       // forward input to puzzle
-      puzzle.receiveInput(msg);
+      puzzle.receiveInput(concatArgs(msg, args));
     }
+  }
+
+  // turns args into single string
+  String concatArgs (String msg, Atom[] args) {
+    return msg + " " + Atom.toOneString(args);
   }
 
   // Fires a message out patch control outlet.
@@ -60,25 +65,21 @@ public class Runner extends MaxObject {
     outlet(kPatchControlOutlet, Atom.newAtom(msg));
   }
 
-  // Fires a message out referee communication outlet.
-  // Always prepends message with 'left'/'right'.
-  public void fireReferee (String msg) {
-    outlet(kRefereeOutlet, 
-           Atom.newAtom((isLeft 
-                         ? "left"
-                         : "right") + msg));
-  }
-
   // Returns true if successfully set puzzle, else false.
-  public boolean receiveNextPuzzle (AbstractPuzzle puzzle) {
+  public boolean receiveNextPuzzle (AbstractPuzzle nextPuzzle) {
     System.out.println("Received puzzle " + (this.isLeft ? "left" : "right"));
 
-    if (state == State.finished) {
-      puzzle = puzzle;
+    if (state == State.waiting) {
+      puzzle = nextPuzzle;
       puzzle.start();
+      state = State.inPuzzle;
       return true;
     }
-    // if `state` is not finished, can't set puzzle
+    // if `state` is not `waiting`, can't set puzzle
     return false;
+  }
+
+  public void won () {
+    this.state = State.won;
   }
 }

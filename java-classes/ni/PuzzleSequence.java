@@ -4,18 +4,20 @@ import java.util.*;
 import util.Tuple;
 
 public class PuzzleSequence {
-  private List<Tuple<AbstractPuzzle, AbstractPuzzle>> puzzles;
+  private ArrayList<Tuple<AbstractPuzzle, AbstractPuzzle>> puzzles;
   private int index;
 
   public PuzzleSequence () {
     this.puzzles = new ArrayList<Tuple<AbstractPuzzle, AbstractPuzzle>>(); 
-    this.puzzles.add(new Tuple<AbstractPuzzle, AbstractPuzzle>(new RhythmPuzzle("123.mov"), new RhythmPuzzle("123.mov")));
+    this.puzzles.add(puzzlePair(new RhythmPuzzle("123.mov"), new RhythmPuzzle("123.mov")));
+    this.puzzles.add(puzzlePair(new RhythmPuzzle("123.mov"), new RhythmPuzzle("123.mov")));
     index = 0;
   }
 
+
   // Sets the current puzzle to the next puzzle, and returns that puzzle, or null if at end of puzzle list.
   public Tuple<AbstractPuzzle, AbstractPuzzle> next() {
-    index = index + 1;
+    index++;
     return index >= puzzles.size() ? null : puzzles.get(index);
   } 
 
@@ -26,5 +28,9 @@ public class PuzzleSequence {
 
   public void reset () {
     index = 0;
+  }
+
+  private Tuple<AbstractPuzzle, AbstractPuzzle> puzzlePair(AbstractPuzzle left, AbstractPuzzle right) {
+    return new Tuple<AbstractPuzzle, AbstractPuzzle>(left, right);
   }
 }

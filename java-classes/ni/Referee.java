@@ -40,7 +40,6 @@ public class Referee extends MaxObject {
     System.out.println("Starting Referee...");
 
     puzzles.reset();
-    System.out.println("Sending...");
     sendPuzzle(puzzles.current());
   }
 
@@ -65,30 +64,49 @@ public class Referee extends MaxObject {
     }
   }
 
+  public void registerLeftRunner (Runner runner) {
+    leftRunner = runner;
+  }
+
+  public void registerRightRunner (Runner runner) {
+    rightRunner = runner;
+  }
+
   void punish () {
     outlet(kGeneralOutlet, Atom.newAtom("punish"));
   }
 
   void transition (boolean leftSuccess, boolean rightSuccess) {
     if (leftSuccess && rightSuccess) {
-      sendPuzzle(puzzles.next());
+      System.out.println("1");
+      Tuple<AbstractPuzzle, AbstractPuzzle> nextPuzzles = puzzles.next();
+      if (nextPuzzles != null) {
+        sendPuzzle(nextPuzzles);
+      } else {
+        win();
+      }
     } else {
-      // stupid
+      // TODO: fix this && business
       if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
+        System.out.println("2");
         sendPuzzle(puzzles.current());
       } else {
-        sendPuzzle(puzzles.next());
+        System.out.println("3");
+        Tuple<AbstractPuzzle, AbstractPuzzle> nextPuzzles = puzzles.next();
+        if (nextPuzzles != null) {
+          sendPuzzle(nextPuzzles);
+        } else {
+          win();
+        }
       }
     }
   }
 
   void sendPuzzle (Tuple<AbstractPuzzle, AbstractPuzzle> puzzle) {
-    System.out.println("Sending2...");
-
     AbstractPuzzle leftPuzzle = puzzle.fst;
     AbstractPuzzle rightPuzzle = puzzle.snd;
 
-    System.out.println("Sending to " + leftRunner + " and " + rightRunner);
+    System.out.println("Sending " + puzzle.fst + " to " + leftRunner + " and " + puzzle.snd+ " to " + rightRunner);
 
     if (leftRunner != null) {
       leftPuzzle.runner = leftRunner;
@@ -104,11 +122,10 @@ public class Referee extends MaxObject {
     }
   }
 
-  public void registerLeftRunner (Runner runner) {
-    leftRunner = runner;
+  void win() {
+    leftRunner.won();
+    rightRunner.won();
+    System.out.println("Everyone wins.");
   }
 
-  public void registerRightRunner (Runner runner) {
-    rightRunner = runner;
-  }
 }
