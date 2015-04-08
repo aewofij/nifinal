@@ -1,6 +1,6 @@
 package ni;
 
-public abstract class IPuzzle {
+public abstract class AbstractPuzzle {
 
   // External object calls this to begin puzzle operation.
   public abstract void start ();
