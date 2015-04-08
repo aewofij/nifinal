@@ -4,8 +4,8 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 0,
-			"revision" : 0,
-			"architecture" : "x64",
+			"revision" : 1,
+			"architecture" : "x86",
 			"modernui" : 1
 		}
 ,
@@ -68,7 +68,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 542.5, 250.5, 89.0, 22.0 ],
-					"presentation_rect" : [ 592.5, 250.0, 0.0, 0.0 ],
 					"style" : "",
 					"text" : "r inputEventsR"
 				}
@@ -82,7 +81,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 436.5, 250.5, 87.0, 22.0 ],
-					"presentation_rect" : [ 436.5, 250.0, 0.0, 0.0 ],
 					"style" : "",
 					"text" : "r inputEventsL"
 				}
@@ -209,8 +207,8 @@
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 199.0, 103.0, 111.0, 22.0 ],
 					"style" : "",
 					"text" : "mxj ni.Runner right"
@@ -222,8 +220,8 @@
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 28.0, 103.0, 104.0, 22.0 ],
 					"style" : "",
 					"text" : "mxj ni.Runner left"
@@ -281,8 +279,8 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 0,
-							"revision" : 0,
-							"architecture" : "x64",
+							"revision" : 1,
+							"architecture" : "x86",
 							"modernui" : 1
 						}
 ,
@@ -326,8 +324,8 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 0,
-											"revision" : 0,
-											"architecture" : "x64",
+											"revision" : 1,
+											"architecture" : "x86",
 											"modernui" : 1
 										}
 ,
@@ -372,8 +370,8 @@
 														"appversion" : 														{
 															"major" : 7,
 															"minor" : 0,
-															"revision" : 0,
-															"architecture" : "x64",
+															"revision" : 1,
+															"architecture" : "x86",
 															"modernui" : 1
 														}
 ,
@@ -1163,8 +1161,8 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 0,
-											"revision" : 0,
-											"architecture" : "x64",
+											"revision" : 1,
+											"architecture" : "x86",
 											"modernui" : 1
 										}
 ,
@@ -1209,8 +1207,8 @@
 														"appversion" : 														{
 															"major" : 7,
 															"minor" : 0,
-															"revision" : 0,
-															"architecture" : "x64",
+															"revision" : 1,
+															"architecture" : "x86",
 															"modernui" : 1
 														}
 ,
@@ -1877,9 +1875,6 @@
 							}
 , 							{
 								"box" : 								{
-									"fontface" : 0,
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
 									"id" : "obj-9",
 									"items" : "123.mov",
 									"maxclass" : "umenu",
@@ -1905,8 +1900,8 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 0,
-											"revision" : 0,
-											"architecture" : "x64",
+											"revision" : 1,
+											"architecture" : "x86",
 											"modernui" : 1
 										}
 ,
@@ -2101,8 +2096,8 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 0,
-											"revision" : 0,
-											"architecture" : "x64",
+											"revision" : 1,
+											"architecture" : "x86",
 											"modernui" : 1
 										}
 ,
@@ -2363,9 +2358,6 @@
 							}
 , 							{
 								"box" : 								{
-									"fontface" : 0,
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
 									"id" : "obj-6",
 									"items" : "123.mov",
 									"maxclass" : "umenu",
@@ -2750,8 +2742,8 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 0,
-							"revision" : 0,
-							"architecture" : "x64",
+							"revision" : 1,
+							"architecture" : "x86",
 							"modernui" : 1
 						}
 ,
@@ -2886,8 +2878,7 @@
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 633.0, 43.5, 100.0, 50.0 ],
-									"style" : "",
-									"textjustification" : 0
+									"style" : ""
 								}
 
 							}
@@ -3056,8 +3047,7 @@
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 233.0, 43.5, 100.0, 50.0 ],
-									"style" : "",
-									"textjustification" : 0
+									"style" : ""
 								}
 
 							}
@@ -3458,7 +3448,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 524.5, 97.5, 129.0, 33.0 ],
+					"patching_rect" : [ 524.5, 97.5, 129.0, 34.0 ],
 					"style" : "",
 					"text" : "[also sends puzzles over Java connection]"
 				}
@@ -3671,6 +3661,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-4", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-22", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -3693,6 +3692,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-5", 2 ]
 				}
 
 			}
@@ -3780,7 +3788,7 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "videomarkers.js",
-				"bootpath" : "~/Documents/Max 7/Packages/ni/javascript",
+				"bootpath" : "~/Max 7/Packages/ni/javascript",
 				"patcherrelativepath" : "./javascript",
 				"type" : "TEXT",
 				"implicit" : 1

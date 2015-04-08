@@ -65,11 +65,21 @@ public class Referee extends MaxObject {
   }
 
   public void registerLeftRunner (Runner runner) {
+	System.out.println("Registering leftRunner...");
+	// System.out.println("leftRunner: " + leftRunner);
+	// System.out.println("rightRunner: " + rightRunner);
     leftRunner = runner;
+	// System.out.println("leftRunner: " + leftRunner);
+	// System.out.println("rightRunner: " + rightRunner);
   }
 
   public void registerRightRunner (Runner runner) {
+	System.out.println("Registering rightRunner...");
+	// System.out.println("leftRunner: " + leftRunner);
+	// System.out.println("rightRunner: " + rightRunner);
     rightRunner = runner;
+	// System.out.println("leftRunner: " + leftRunner);
+	// System.out.println("rightRunner: " + rightRunner);
   }
 
   void punish () {
@@ -126,6 +136,15 @@ public class Referee extends MaxObject {
     leftRunner.won();
     rightRunner.won();
     System.out.println("Everyone wins.");
+  }
+  public boolean getReadySetG() {
+	if ((leftRunner != null) && (rightRunner != null)) {
+		System.out.println("left and right ready");
+		return true;
+	}
+	else {
+		return false;
+	}
   }
 
 }

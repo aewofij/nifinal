@@ -7,6 +7,7 @@ import util.Tuple;
 public class Runner extends MaxObject {
   public final int kRefereeOutlet = 0;
   public final int kPatchControlOutlet = 1;
+  public final int kPartnerOutlet = 2;
 
   public enum State {
     inPuzzle, waiting, won
@@ -19,7 +20,7 @@ public class Runner extends MaxObject {
 
   public Runner (Atom[] args) {
     declareInlets(new int[] { DataTypes.ALL });
-    declareOutlets(new int[] { DataTypes.ALL, DataTypes.ALL });
+    declareOutlets(new int[] { DataTypes.ALL, DataTypes.ALL, DataTypes.ALL });
 
     if (args.length > 0) {
       if (args[0].getString().equals("left")) {
@@ -36,6 +37,9 @@ public class Runner extends MaxObject {
     }
 
     state = State.waiting;
+	// if (Referee.getInstance().getReadySetG()) {
+		// Referee.getInstance().start();
+	// }
   }
 
   public void finishedPuzzle (boolean success) {
@@ -64,6 +68,11 @@ public class Runner extends MaxObject {
   public void firePatchControl (String msg) {
     outlet(kPatchControlOutlet, Atom.newAtom(msg));
   }
+  
+  // Fires a message out runner outlet to partner runner inlet.
+  public void fireAtOtherRunner (String msg) {
+    outlet(kPartnerOutlet, Atom.newAtom(msg));
+  }
 
   // Returns true if successfully set puzzle, else false.
   public boolean receiveNextPuzzle (AbstractPuzzle nextPuzzle) {
@@ -81,5 +90,9 @@ public class Runner extends MaxObject {
 
   public void won () {
     this.state = State.won;
+  }
+  
+  public boolean getIdentity() {
+    return isLeft;
   }
 }
