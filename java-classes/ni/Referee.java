@@ -1,6 +1,6 @@
 package ni;
 
-// TODO: how to send puzzle data to Runners?
+import java.util.*;
 
 public class Referee {
 
@@ -18,6 +18,7 @@ public class Referee {
   }
 
   private PuzzleSequence puzzles;
+  private Runner leftRunner, rightRunner;
   private Player completed = null;
   private boolean completedSuccessful;
 
@@ -62,6 +63,23 @@ public class Referee {
   }
 
   public void sendNextPuzzle (IPuzzle puzzle) {
-    // TODO
+    if (leftRunner != null) {
+      if (!leftRunner.receiveNextPuzzle(puzzle)) {
+        System.err.println("Left runner did not receive puzzle!");
+      }
+    }
+    if (rightRunner != null) {
+      if (!rightRunner.receiveNextPuzzle(puzzle)) {
+        System.err.println("Right runner did not receive puzzle!");
+      }
+    }
+  }
+
+  public void registerLeftRunner (Runner runner) {
+    leftRunner = runner;
+  }
+
+  public void registerRightRunner (Runner runner) {
+    rightRunner = runner;
   }
 }

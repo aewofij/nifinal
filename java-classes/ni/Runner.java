@@ -21,6 +21,16 @@ public class Runner extends MaxObject {
     declareInlets(DataTypes.ALL);
     declareOutlets(DataTypes.ALL, DataTypes.ALL);
 
+    if (args.length > 0) {
+      if (args[0].getString().equals("left")) {
+        Referee.getInstance().registerLeftRunner(this);
+      } else if (args[0].getString().equals("right")) {
+        Referee.getInstance().registerRightRunner(this);
+      } else {
+        System.err.println("Invalid arguments to ni.Runner.");
+      }
+    }
+
     state = State.finished;
   }
 
