@@ -21,5 +21,23 @@ receive player completed puzzle (filtering after initial event)
 # Output
 send go to next puzzle
 
----- TODO ----
-- create Max patch
+
+---- EVENTS ----
+# Input events
+  button <button index>
+  text <text string>
+  video <marker string>
+
+# From Runner
+## To Referee
+  left success
+  right success
+  left failure
+  right failure
+
+## To patch control
+  loadvideo <video file to load>
+
+# From Referee
+## To general
+  punish

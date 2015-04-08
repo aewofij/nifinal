@@ -1,12 +1,22 @@
-package ni.puzzles;
+package ni;
 
 public class RhythmPuzzle extends AbstractPuzzle {
 
+  // Does this puzzle restart on failure?
+  public boolean isRepeatable = true;
+
   private boolean isPrimed = false;
+  private String videoFile;
+
+  public RhythmPuzzle (String videoFile) {
+    this.videoFile = videoFile;
+  }
 
   // External object calls this to begin puzzle operation.
   public void start () {
-
+    if (this.runner != null) {
+      this.runner.firePatchControl("loadvideo " + videoFile);
+    }
   }
 
   // Receives real-time user events - button presses, video markers, other runner data...
@@ -23,7 +33,4 @@ public class RhythmPuzzle extends AbstractPuzzle {
       }
     } 
   }
-
-  // Does this puzzle restart on failure?
-  public boolean isRepeatable = true;
 }

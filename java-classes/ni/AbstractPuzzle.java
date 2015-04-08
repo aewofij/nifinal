@@ -2,6 +2,9 @@ package ni;
 
 public abstract class AbstractPuzzle {
 
+  // Runner who is running this puzzle.
+  public Runner runner;
+
   // External object calls this to begin puzzle operation.
   public abstract void start ();
 
@@ -13,11 +16,11 @@ public abstract class AbstractPuzzle {
 
   // Called when puzzle is succesfully completed.
   public void successful () {
-    // TODO
+    runner.finishedPuzzle(true);
   }
 
   // Called when puzzle is succesfully failed.
   public void failure () {
-    // TODO
+    runner.finishedPuzzle(false);
   }
 }

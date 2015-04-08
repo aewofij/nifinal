@@ -1,8 +1,14 @@
 package ni;
 
+import com.cycling74.max.*;
 import java.util.*;
+import util.Tuple;
 
-public class Referee {
+public class Referee extends MaxObject {
+
+  final int kLeftOutlet = 0;
+  final int kRightOutlet = 1;
+  final int kGeneralOutlet = 2;
 
   enum Player {
     left, right
@@ -12,7 +18,7 @@ public class Referee {
   private static Referee instance;
   public static Referee getInstance() {
     if (instance == null) {
-      instance = new Referee();
+      instance = new Referee(new Atom[0]);
     }
     return instance;
   }
@@ -22,9 +28,22 @@ public class Referee {
   private Player completed = null;
   private boolean completedSuccessful;
 
-  public Referee () {
-    // TODO
+  // `protected` because we don't want anyone to call this except `Referee`, above
+  protected Referee (Atom[] args) {
+    declareInlets(new int[] { DataTypes.ALL });
+    declareOutlets(new int[] { DataTypes.ALL, DataTypes.ALL, DataTypes.ALL });
+
+    this.puzzles = new PuzzleSequence();
   }
+
+  public void start () {
+    System.out.println("Starting Referee...");
+
+    puzzles.reset();
+    System.out.println("Sending...");
+    sendPuzzle(puzzles.current());
+  }
+
 
   // called when a player completes a puzzle
   public void completed (boolean isLeftPlayer, boolean success) {
@@ -46,15 +65,16 @@ public class Referee {
     }
   }
 
-  public void punish () {
-    // TODO
+  void punish () {
+    outlet(kGeneralOutlet, Atom.newAtom("punish"));
   }
 
-  public void transition (boolean leftSuccess, boolean rightSuccess) {
+  void transition (boolean leftSuccess, boolean rightSuccess) {
     if (leftSuccess && rightSuccess) {
       sendPuzzle(puzzles.next());
     } else {
-      if (currentPuzzle.isRepeatable) {
+      // stupid
+      if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
         sendPuzzle(puzzles.current());
       } else {
         sendPuzzle(puzzles.next());
@@ -62,14 +82,23 @@ public class Referee {
     }
   }
 
-  public void sendNextPuzzle (AbstractPuzzle puzzle) {
+  void sendPuzzle (Tuple<AbstractPuzzle, AbstractPuzzle> puzzle) {
+    System.out.println("Sending2...");
+
+    AbstractPuzzle leftPuzzle = puzzle.fst;
+    AbstractPuzzle rightPuzzle = puzzle.snd;
+
+    System.out.println("Sending to " + leftRunner + " and " + rightRunner);
+
     if (leftRunner != null) {
-      if (!leftRunner.receiveNextPuzzle(puzzle)) {
+      leftPuzzle.runner = leftRunner;
+      if (!leftRunner.receiveNextPuzzle(leftPuzzle)) {
         System.err.println("Left runner did not receive puzzle!");
       }
     }
     if (rightRunner != null) {
-      if (!rightRunner.receiveNextPuzzle(puzzle)) {
+      rightPuzzle.runner = rightRunner;
+      if (!rightRunner.receiveNextPuzzle(rightPuzzle)) {
         System.err.println("Right runner did not receive puzzle!");
       }
     }
