@@ -1,6 +1,12 @@
+package ni;
+
 // TODO: how to send puzzle data to Runners?
 
 public class Referee {
+
+  enum Player {
+    left, right
+  };
 
   // singleton
   private static Referee instance;
@@ -12,24 +18,50 @@ public class Referee {
   }
 
   private PuzzleSequence puzzles;
-  private Puzzle currentPuzzle;
-  private boolean player1Complete;
-  private boolean player2Complete;
+  private Player completed = null;
+  private boolean completedSuccessful;
+
+  public Referee () {
+    // TODO
+  }
 
   // called when a player completes a puzzle
-  public void completed (who) {
+  public void completed (boolean isLeftPlayer, boolean success) {
+    if (!success) {
+      punish();
+    }
 
+    if (completed == null) {
+      completed = isLeftPlayer ? Player.left : Player.right;
+      completedSuccessful = success;
+      return;
+    } else {
+      if (isLeftPlayer && completed == Player.right) {
+        transition(success, completedSuccessful);
+      }
+      if (!isLeftPlayer && completed == Player.left) {
+        transition(completedSuccessful, success);
+      }
+    }
   }
 
-  public void transition () {
-    // eventually calls `sendNextPuzzle`
+  public void punish () {
+    // TODO
   }
 
-  public void repeatPuzzle () {
-
+  public void transition (boolean leftSuccess, boolean rightSuccess) {
+    if (leftSuccess && rightSuccess) {
+      sendPuzzle(puzzles.next());
+    } else {
+      if (currentPuzzle.isRepeatable) {
+        sendPuzzle(puzzles.current());
+      } else {
+        sendPuzzle(puzzles.next());
+      }
+    }
   }
 
-  public void sendNextPuzzle () {
-
+  public void sendNextPuzzle (IPuzzle puzzle) {
+    // TODO
   }
 }
