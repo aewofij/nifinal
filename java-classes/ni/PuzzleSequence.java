@@ -11,8 +11,9 @@ public class PuzzleSequence {
 	System.out.println("Constructing puzzles...");
     this.puzzles = new ArrayList<Tuple<AbstractPuzzle, AbstractPuzzle>>(); 
     
-    // this.puzzles.add(puzzlePair(new RhythmPuzzle("123.mov"), new RhythmPuzzle("123.mov")));
-  	this.puzzles.add(puzzlePair(new AnsMayVaryOnewayPuzzle("123.mov"), new AnsMayVaryOnewayPuzzle("123.mov")));
+    this.puzzles.add(puzzlePair(new RhythmPuzzle("123.mov"), new RhythmPuzzle("123.mov")));
+  	// this.puzzles.add(puzzlePair(new AnsMayVaryOnewayPuzzle("123.mov"), new AnsMayVaryOnewayPuzzle("123.mov")));
+    this.puzzles.add(puzzlePair(new MultipleChoicePuzzle(), new MultipleChoicePuzzle()));
     index = 0;
   }
 

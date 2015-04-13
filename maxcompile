@@ -1,4 +1,0 @@
-#!/Users/david/.homebrew/Cellar/fish/2.1.0/bin/fish
-#usr/bin/env bash
-scalac -cp /Applications/Max\ 6.1/Cycling\ \'74/java/lib/max.jar:java-classes:. -d java-classes **.scala **.java
-/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin/javac -cp /Applications/Max\ 6.1/Cycling\ \'74/java/lib/max.jar:. **.java
