@@ -1,65 +1,81 @@
 import ni.AbstractPuzzle;
 
 package ni {
-  class TestMultipleChoicePuzzle() extends AbstractPuzzle with MultipleChoicePuzzle {
+  class GenericMultipleChoicePuzzle(val mainText: String,
+                                    override var choices: Map[Button, Option[String]],
+                                    override var correctChoice: Option[Button]) 
+      extends AbstractPuzzle with MultipleChoicePuzzle {
 
-    override val responses: Map[Button, Some[String]] = Map(RedButton()    -> Some("Wrong!"),
-                        BlueButton()   -> Some("Wrong!"),
-                        YellowButton() -> Some("Right!"))
-    override var correctResponse: Option[Button] = Some(YellowButton())
+    var isActive = false
+    val drawer = new ni.PuzzleDrawer(this)
 
     // Called at start of puzzle.
     def start(): Unit = {
       isActive = true;
-      System.out.println("responses");
-      responses foreach System.out.println
+
+      drawer.setBackgroundColor("white")
+            .setMainText(mainText)
+            .setChoicesText(this.choices)
     }
 
     // Called at end of puzzle. Any teardown goes here.
     def end(): Unit = {
-      System.out.println("ending");
+      isActive = false;
+      // System.out.println("ending");
     }
+  }
 
-    // // Receives real-time user events - button presses, video markers, other runner data...
-    // def receiveInput(event: String): Unit = {
-    //   val strOut = "received event " + event;
-    //   System.out.println(strOut);
-    // }
+  object GenericMultipleChoicePuzzle {
+    def make(text: String, correctChoice: Button,
+             redChoice: String, blueChoice: String, yellowChoice: String): GenericMultipleChoicePuzzle = {
+      // val build = (acc: Map[Button, Option[String]], elm: util.Tuple[Button, String]) => acc + (elm.fst -> Some(elm.snd))
+      // val choiceMap = choices.foldLeft(Map[Button, Option[String]]())(build)
+      var choiceMap = Map[Button, Option[String]](RedButton() -> None, BlueButton() -> None, YellowButton() -> None)
+      if (redChoice != null) {
+        choiceMap = choiceMap + (RedButton() -> Some(redChoice))
+      }
+      if (blueChoice != null) {
+        choiceMap = choiceMap + (BlueButton() -> Some(blueChoice))
+      }
+      if (yellowChoice != null) {
+        choiceMap = choiceMap + (YellowButton() -> Some(yellowChoice))
+      }
+      new GenericMultipleChoicePuzzle(text, choiceMap, Some(correctChoice))
+    }
   }
 
 
   trait MultipleChoicePuzzle extends AbstractPuzzle {
-    sealed abstract class Button
-    case class RedButton()    extends Button
-    case class BlueButton()   extends Button
-    case class YellowButton() extends Button
-
     // response strings to be shown on screen
-    val responses: Map[Button, Option[String]]
+    var choices: Map[Button, Option[String]]
     // button corresponding to correct answer
-    var correctResponse: Option[Button]
+    var correctChoice: Option[Button]
 
-    var isActive = false;
+    var isActive: Boolean
 
     def receiveInput(event: String): Unit = {
-      if (this.isActive) {
-        (toButtonPress(event), correctResponse) match {
+      if (isActive) {
+        (toButtonPress(event), correctChoice) match {
           case (Some(button), Some(answer)) => respondToButton(button, answer)
-          case (_, _)                       => () // unknown event or no correct answer
+          case _                            => () // unknown event or no correct answer
         }
       }
     }
 
+    def setChoice(button: Button, text: String): Unit = {
+      choices = choices + (button -> Some(text))
+    }
+
     private def respondToButton(button: Button, answerButton: Button) = button match {
-      case `answerButton` => System.out.println("you got it!"); super.successful()
+      case `answerButton` => super.successful()
       case _              => super.failure()
     }
 
     private def toButtonPress(eventString: String): Option[Button] = eventString match {
-      case "button red"    => Some(RedButton())
-      case "button blue"   => Some(BlueButton())
-      case "button yellow" => Some(YellowButton())
-      case _               => None
+      case "ctrl button red"    => Some(RedButton())
+      case "ctrl button blue"   => Some(BlueButton())
+      case "ctrl button yellow" => Some(YellowButton())
+      case _                    => None
     }
   
   }
