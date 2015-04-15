@@ -14,6 +14,9 @@ public abstract class AbstractPuzzle {
   // Receives real-time user events - button presses, video markers, other runner data...
   public abstract void receiveInput (String event);
 
+  public String successTransition;
+  public String failureTransition;
+
   // Does this puzzle restart on failure?
   public boolean isRepeatable;
 

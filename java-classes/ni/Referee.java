@@ -25,6 +25,7 @@ public class Referee extends MaxObject {
 
   private PuzzleSequence puzzles;
   private Runner leftRunner, rightRunner;
+  private RefereeRunner refRunner;
   private Player completed = null;
   private boolean completedSuccessful;
 
@@ -39,8 +40,6 @@ public class Referee extends MaxObject {
   public void start () {
     System.out.println("Starting Referee...");
 
-    // puzzles.current().fst.end();
-    // puzzles.current().snd.end();
     leftRunner.reset();
     rightRunner.reset();
 
@@ -61,10 +60,10 @@ public class Referee extends MaxObject {
       return;
     } else {
       if (isLeftPlayer && completed == Player.right) {
-        transition(success, completedSuccessful);
+        startTransition(success, completedSuccessful);
       }
       if (!isLeftPlayer && completed == Player.left) {
-        transition(completedSuccessful, success);
+        startTransition(completedSuccessful, success);
       }
     }
   }
@@ -79,29 +78,67 @@ public class Referee extends MaxObject {
     rightRunner = runner;
   }
 
-  void punish () {
-    outlet(kGeneralOutlet, Atom.newAtom("punish"));
+  public void registerRunner (RefereeRunner runner) {
+    System.out.println("Registering ref runner...");
+    refRunner = runner;
   }
 
-  void transition (boolean leftSuccess, boolean rightSuccess) {
+  void punish () {
+    refRunner.fire(kGeneralOutlet, "punish");
+  }
+
+  void startTransition (boolean leftSuccess, boolean rightSuccess) {
     if (leftSuccess && rightSuccess) {
-      Tuple<AbstractPuzzle, AbstractPuzzle> nextPuzzles = puzzles.next();
-      if (nextPuzzles != null) {
-        sendPuzzle(nextPuzzles);
+      Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
+      // Advance the sequence, checking if we're at the end.
+      if (puzzles.next() != null) {
+        fireTransition(oldPuzzles, true);
       } else {
         win();
       }
     } else {
       // TODO: fix this && business
       if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
-        sendPuzzle(puzzles.current());
+        // Immediately restart.
+        endTransition();
       } else {
-        Tuple<AbstractPuzzle, AbstractPuzzle> nextPuzzles = puzzles.next();
-        if (nextPuzzles != null) {
-          sendPuzzle(nextPuzzles);
+        Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
+        // Advance the sequence, checking if we're at the end.
+        if (puzzles.next() != null) {
+          fireTransition(oldPuzzles, false);
         } else {
           win();
         }
+      }
+    }
+  }
+
+  void endTransition () {
+    Tuple<AbstractPuzzle, AbstractPuzzle> currentPuzzles = puzzles.current();
+    if (currentPuzzles != null) {
+      sendPuzzle(currentPuzzles);
+    } else {
+      win();
+    }
+  }
+
+  void fireTransition (Tuple<AbstractPuzzle, AbstractPuzzle> fromPuzzles, boolean isSuccess) {
+    if (fromPuzzles != null) {
+      String toLeft = isSuccess ? fromPuzzles.fst.successTransition
+                                : fromPuzzles.fst.failureTransition;
+      String toRight = isSuccess ? fromPuzzles.snd.successTransition
+                                 : fromPuzzles.snd.failureTransition;
+
+      if (toLeft != null) {
+        refRunner.fire(kLeftOutlet,  "transition " + toLeft);
+      } else {
+        refRunner.endTransition(true);
+      }
+
+      if (toRight != null) {
+        refRunner.fire(kRightOutlet, "transition " + toRight);
+      } else {
+        refRunner.endTransition(false);
       }
     }
   }

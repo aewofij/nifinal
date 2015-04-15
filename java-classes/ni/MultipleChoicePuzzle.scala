@@ -23,12 +23,11 @@ package ni {
     def end(): Unit = {
       System.out.println("Ending GenericMultipleChoicePuzzle...");
       isActive = false;
-      // System.out.println("ending");
     }
   }
 
   object GenericMultipleChoicePuzzle {
-    def make(text: String, correctChoice: Button,
+    def make(text: String, successTransition: String, failureTransition: String, correctChoice: Button,
              redChoice: String, blueChoice: String, yellowChoice: String): GenericMultipleChoicePuzzle = {
       var choiceMap = Map[Button, Option[String]](RedButton() -> None, BlueButton() -> None, YellowButton() -> None)
       if (redChoice != null) {
@@ -40,7 +39,10 @@ package ni {
       if (yellowChoice != null) {
         choiceMap = choiceMap + (YellowButton() -> Some(yellowChoice))
       }
-      new GenericMultipleChoicePuzzle(text, choiceMap, Some(correctChoice))
+      var result = new GenericMultipleChoicePuzzle(text, choiceMap, Some(correctChoice))
+      result.successTransition = successTransition
+      result.failureTransition = failureTransition
+      return result
     }
   }
 
