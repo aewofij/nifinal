@@ -66,6 +66,11 @@ package ni {
       choices = choices + (button -> Some(text))
     }
 
+    def setCorrectChoice(button: Button): Unit = button match {
+      case null => correctChoice = None
+      case _    => correctChoice = Some(button)
+    }
+
     private def respondToButton(button: Button, answerButton: Button) = button match {
       case `answerButton` => super.successful()
       case _              => super.failure()

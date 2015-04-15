@@ -15,10 +15,29 @@ public class PuzzleSequence {
   public PuzzleSequence () {
     this.puzzles = new ArrayList<Tuple<AbstractPuzzle, AbstractPuzzle>>(); 
     this.commandsOnStep = new HashMap<Integer, List<Tuple<String, Integer>>>();
-    
-    // this.puzzles.add(puzzlePair(new RhythmPuzzle("123.mov"), new RhythmPuzzle("123.mov")));
-  	// this.puzzles.add(puzzlePair(new AnsMayVaryOnewayPuzzle("123.mov"), new AnsMayVaryOnewayPuzzle("123.mov")));
 
+    /* ----- ADDING PUZZLES
+     There's a new way of adding puzzles. `addPair` takes in two `AbstractPuzzle`s and an optional list
+       of commands, formatted as tuples of (<command string>, <delay time in ms after puzzle start>).
+     (List will be useful in triggering AI videos along with WARNING / SYSTEM FAILURE-kinda videos, as
+       well as potentially lighting or sound trigger events.)
+    
+     addPair(AbstractPuzzle, AbstractPuzzle)
+     addPair(AbstractPuzzle, AbstractPuzzle, List<Tuple<String, Integer>>)
+     
+     There's also this `GenericMultipleChoicePuzzle.make` "constructor", which unfortunately lives in Scala-land,
+       in file `MultipleChoicePuzzle.scala`. `make` takes as arguments:
+    
+       text              : String - the question or main puzzle text
+       failureTransition : String - the name of the failure transition video, or null if no video (instant cut)
+       successTransition : String - the name of the success transition video, or null if no video (instant cut)
+       correctChoice     : Button - the button corresponding to the correct answer: 
+                                      an object of either RedButton, BlueButton, YellowButton, or null for no correct 
+                                      answer (can be modified with method `GenericMultipleChoicePuzzle.setCorrectChoice(Button)`)
+       redResponse       : String - the text to display as the red button's answer, or empty ("") if no text
+       blueResponse      : String - the text to display as the blue button's answer, or empty ("") if no text
+       yellowResponse    : String - the text to display as the yellow button's answer, or empty ("") if no text
+    */
     this.addPair(GenericMultipleChoicePuzzle.make("What do I do?", 
                                                   "wheel.mov",
                                                   "garbage.mov",
