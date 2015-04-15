@@ -26,11 +26,11 @@ public class Runner extends MaxObject {
       if (args[0].getString().equals("left")) {
         Referee.getInstance().registerLeftRunner(this);
         isLeft = true;
-        System.out.println("Initialized left ni.Runner.");
+        // System.out.println("Initialized left ni.Runner.");
       } else if (args[0].getString().equals("right")) {
         Referee.getInstance().registerRightRunner(this);
         isLeft = false;
-        System.out.println("Initialized right ni.Runner.");
+        // System.out.println("Initialized right ni.Runner.");
       } else {
         System.err.println("Invalid arguments to ni.Runner.");
       }
@@ -76,7 +76,7 @@ public class Runner extends MaxObject {
 
   // Returns true if successfully set puzzle, else false.
   public boolean receiveNextPuzzle (AbstractPuzzle nextPuzzle) {
-    System.out.println("Received puzzle " + (this.isLeft ? "left" : "right"));
+    // System.out.println("Received puzzle " + (this.isLeft ? "left" : "right"));
 
     if (state == State.waiting) {
       puzzle = nextPuzzle;
