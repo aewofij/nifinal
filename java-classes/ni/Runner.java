@@ -91,6 +91,13 @@ public class Runner extends MaxObject {
   public void won () {
     this.state = State.won;
   }
+
+  public void reset () {
+    if (this.puzzle != null) {
+      this.puzzle.end();
+    }
+    this.state = State.waiting;
+  }
   
   public boolean getIdentity() {
     return isLeft;

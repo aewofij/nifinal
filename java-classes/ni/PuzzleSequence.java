@@ -18,15 +18,25 @@ public class PuzzleSequence {
   	// this.puzzles.add(puzzlePair(new AnsMayVaryOnewayPuzzle("123.mov"), new AnsMayVaryOnewayPuzzle("123.mov")));
     // this.puzzles.add(puzzlePair(new TestMultipleChoicePuzzle(), new TestMultipleChoicePuzzle()));
     this.puzzles.add(puzzlePair(GenericMultipleChoicePuzzle.make("What do I do?", 
-                                                                 new BlueButton(), 
+                                                                 new RedButton(), 
                                                                  "correct",
                                                                  "incorrect",
                                                                  "also wrong"),
                                 GenericMultipleChoicePuzzle.make("What do I do?", 
-                                                                 new BlueButton(), 
+                                                                 new RedButton(), 
                                                                  "correct",
                                                                  "incorrect",
                                                                  "also wrong")));
+    this.puzzles.add(puzzlePair(GenericMultipleChoicePuzzle.make("Where do I go?", 
+                                                                 new BlueButton(), 
+                                                                 "North",
+                                                                 "East",
+                                                                 "West"),
+                                GenericMultipleChoicePuzzle.make("Where do I go?", 
+                                                                 new BlueButton(), 
+                                                                 "North",
+                                                                 "East",
+                                                                 "West")));
     // this.puzzles.add( transition video );
     index = 0;
   }

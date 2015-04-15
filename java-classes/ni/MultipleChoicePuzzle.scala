@@ -11,6 +11,7 @@ package ni {
 
     // Called at start of puzzle.
     def start(): Unit = {
+      System.out.println("Starting GenericMultipleChoicePuzzle...");
       isActive = true;
 
       drawer.setBackgroundColor("white")
@@ -20,6 +21,7 @@ package ni {
 
     // Called at end of puzzle. Any teardown goes here.
     def end(): Unit = {
+      System.out.println("Ending GenericMultipleChoicePuzzle...");
       isActive = false;
       // System.out.println("ending");
     }
@@ -28,8 +30,6 @@ package ni {
   object GenericMultipleChoicePuzzle {
     def make(text: String, correctChoice: Button,
              redChoice: String, blueChoice: String, yellowChoice: String): GenericMultipleChoicePuzzle = {
-      // val build = (acc: Map[Button, Option[String]], elm: util.Tuple[Button, String]) => acc + (elm.fst -> Some(elm.snd))
-      // val choiceMap = choices.foldLeft(Map[Button, Option[String]]())(build)
       var choiceMap = Map[Button, Option[String]](RedButton() -> None, BlueButton() -> None, YellowButton() -> None)
       if (redChoice != null) {
         choiceMap = choiceMap + (RedButton() -> Some(redChoice))
@@ -57,8 +57,10 @@ package ni {
       if (isActive) {
         (toButtonPress(event), correctChoice) match {
           case (Some(button), Some(answer)) => respondToButton(button, answer)
-          case _                            => () // unknown event or no correct answer
+          case _                            => System.out.println(event + "; " + correctChoice); () // unknown event or no correct answer
         }
+      } else {
+        System.out.println("not active")
       }
     }
 
@@ -67,8 +69,8 @@ package ni {
     }
 
     private def respondToButton(button: Button, answerButton: Button) = button match {
-      case `answerButton` => super.successful()
-      case _              => super.failure()
+      case `answerButton` => System.out.println("success"); super.successful()
+      case _              => System.out.println("failure"); super.failure()
     }
 
     private def toButtonPress(eventString: String): Option[Button] = eventString match {

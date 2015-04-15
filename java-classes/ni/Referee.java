@@ -39,6 +39,11 @@ public class Referee extends MaxObject {
   public void start () {
     System.out.println("Starting Referee...");
 
+    // puzzles.current().fst.end();
+    // puzzles.current().snd.end();
+    leftRunner.reset();
+    rightRunner.reset();
+
     puzzles.reset();
     sendPuzzle(puzzles.current());
   }
@@ -65,21 +70,13 @@ public class Referee extends MaxObject {
   }
 
   public void registerLeftRunner (Runner runner) {
-	System.out.println("Registering leftRunner...");
-	// System.out.println("leftRunner: " + leftRunner);
-	// System.out.println("rightRunner: " + rightRunner);
+  	System.out.println("Registering leftRunner...");
     leftRunner = runner;
-	// System.out.println("leftRunner: " + leftRunner);
-	// System.out.println("rightRunner: " + rightRunner);
   }
 
   public void registerRightRunner (Runner runner) {
-	System.out.println("Registering rightRunner...");
-	// System.out.println("leftRunner: " + leftRunner);
-	// System.out.println("rightRunner: " + rightRunner);
+    System.out.println("Registering rightRunner...");
     rightRunner = runner;
-	// System.out.println("leftRunner: " + leftRunner);
-	// System.out.println("rightRunner: " + rightRunner);
   }
 
   void punish () {
@@ -88,7 +85,6 @@ public class Referee extends MaxObject {
 
   void transition (boolean leftSuccess, boolean rightSuccess) {
     if (leftSuccess && rightSuccess) {
-      System.out.println("1");
       Tuple<AbstractPuzzle, AbstractPuzzle> nextPuzzles = puzzles.next();
       if (nextPuzzles != null) {
         sendPuzzle(nextPuzzles);
@@ -98,10 +94,8 @@ public class Referee extends MaxObject {
     } else {
       // TODO: fix this && business
       if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
-        System.out.println("2");
         sendPuzzle(puzzles.current());
       } else {
-        System.out.println("3");
         Tuple<AbstractPuzzle, AbstractPuzzle> nextPuzzles = puzzles.next();
         if (nextPuzzles != null) {
           sendPuzzle(nextPuzzles);
@@ -137,14 +131,15 @@ public class Referee extends MaxObject {
     rightRunner.won();
     System.out.println("Everyone wins.");
   }
+
   public boolean getReadySetG() {
-	if ((leftRunner != null) && (rightRunner != null)) {
-		System.out.println("left and right ready");
-		return true;
-	}
-	else {
-		return false;
-	}
+  	if ((leftRunner != null) && (rightRunner != null)) {
+  		System.out.println("left and right ready");
+  		return true;
+  	}
+  	else {
+  		return false;
+  	}
   }
 
 }
