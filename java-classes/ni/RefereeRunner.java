@@ -23,8 +23,6 @@ public class RefereeRunner extends MaxObject {
   public void anything (String msg, Atom[] args) {
     String message = concatArgs(msg, args);
 
-    System.out.println("RefRunner received " + message);
-
     if (message.equals("endtransition left")) {
       endTransition(true);
     } else if (message.equals("endtransition right")) {

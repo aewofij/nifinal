@@ -31,17 +31,13 @@ public class RhythmPuzzle extends AbstractPuzzle {
   public void receiveInput (String event) {
     if (this.active) {
       if (event.equals("video start")) {
-        System.out.println("Puzzle primed.");
         this.isPrimed = true;
       } else if (event.equals("video stop")) {
-        System.out.println("FAILURE");
         super.failure();
       } else if (this.isPrimed) {
         if (event.equals("ctrl button 3")) {
           super.successful();
-          System.out.println("SUCCESS");
         } else {
-          System.out.println("ALSO FAILURE");
           super.failure();
         }
       } 

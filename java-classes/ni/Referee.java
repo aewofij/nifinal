@@ -69,17 +69,17 @@ public class Referee extends MaxObject {
   }
 
   public void registerLeftRunner (Runner runner) {
-  	System.out.println("Registering leftRunner...");
+  	// System.out.println("Registering leftRunner...");
     leftRunner = runner;
   }
 
   public void registerRightRunner (Runner runner) {
-    System.out.println("Registering rightRunner...");
+    // System.out.println("Registering rightRunner...");
     rightRunner = runner;
   }
 
   public void registerRunner (RefereeRunner runner) {
-    System.out.println("Registering ref runner...");
+    // System.out.println("Registering ref runner...");
     refRunner = runner;
   }
 
@@ -89,27 +89,38 @@ public class Referee extends MaxObject {
 
   void startTransition (boolean leftSuccess, boolean rightSuccess) {
     if (leftSuccess && rightSuccess) {
-      Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
-      // Advance the sequence, checking if we're at the end.
-      if (puzzles.next() != null) {
-        fireTransition(oldPuzzles, true);
-      } else {
-        win();
-      }
+      sendTransition();
     } else {
       // TODO: fix this && business
       if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
         // Immediately restart.
         endTransition();
       } else {
-        Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
-        // Advance the sequence, checking if we're at the end.
-        if (puzzles.next() != null) {
-          fireTransition(oldPuzzles, false);
-        } else {
-          win();
-        }
+        sendTransition();
       }
+    }
+  }
+
+  // egh, sorry about weird naming; this one is actually sending transition
+  //   events when we know that we can advance.
+  void sendTransition () {
+    Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
+    // Advance the sequence, checking if we're at the end.
+    if (puzzles.next() != null) {
+      fireTransition(oldPuzzles, false);
+      List<Tuple<String, Integer>> cmds = puzzles.currentCommands();
+      for (final Tuple<String, Integer> cmd : cmds) {
+        // TODO: delays
+        new Thread( new Runnable() {
+          public void run()  {
+            try { Thread.sleep( cmd.snd ); }
+            catch (InterruptedException ie)  {}
+            refRunner.fire(kGeneralOutlet, cmd.fst);
+          }
+        }).start();
+      }
+    } else {
+      win();
     }
   }
 
@@ -147,7 +158,7 @@ public class Referee extends MaxObject {
     AbstractPuzzle leftPuzzle = puzzle.fst;
     AbstractPuzzle rightPuzzle = puzzle.snd;
 
-    System.out.println("Sending " + puzzle.fst + " to " + leftRunner + " and " + puzzle.snd+ " to " + rightRunner);
+    // System.out.println("Sending " + puzzle.fst + " to " + leftRunner + " and " + puzzle.snd+ " to " + rightRunner);
 
     if (leftRunner != null) {
       leftPuzzle.runner = leftRunner;
@@ -171,7 +182,6 @@ public class Referee extends MaxObject {
 
   public boolean getReadySetG() {
   	if ((leftRunner != null) && (rightRunner != null)) {
-  		System.out.println("left and right ready");
   		return true;
   	}
   	else {

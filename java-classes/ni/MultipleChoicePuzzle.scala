@@ -11,7 +11,6 @@ package ni {
 
     // Called at start of puzzle.
     def start(): Unit = {
-      System.out.println("Starting GenericMultipleChoicePuzzle...");
       isActive = true;
 
       drawer.setBackgroundColor("white")
@@ -21,7 +20,6 @@ package ni {
 
     // Called at end of puzzle. Any teardown goes here.
     def end(): Unit = {
-      System.out.println("Ending GenericMultipleChoicePuzzle...");
       isActive = false;
     }
   }
@@ -59,11 +57,9 @@ package ni {
       if (isActive) {
         (toButtonPress(event), correctChoice) match {
           case (Some(button), Some(answer)) => respondToButton(button, answer)
-          case _                            => System.out.println(event + "; " + correctChoice); () // unknown event or no correct answer
+          case _                            => () // unknown event or no correct answer
         }
-      } else {
-        System.out.println("not active")
-      }
+      } 
     }
 
     def setChoice(button: Button, text: String): Unit = {
@@ -71,8 +67,8 @@ package ni {
     }
 
     private def respondToButton(button: Button, answerButton: Button) = button match {
-      case `answerButton` => System.out.println("success"); super.successful()
-      case _              => System.out.println("failure"); super.failure()
+      case `answerButton` => super.successful()
+      case _              => super.failure()
     }
 
     private def toButtonPress(eventString: String): Option[Button] = eventString match {
