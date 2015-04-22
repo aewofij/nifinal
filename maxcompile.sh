@@ -1,11 +1,10 @@
-#!/Users/david/.homebrew/Cellar/fish/2.1.0/bin/fish
-set max_jar /Applications/Max\ 6.1/Cycling\ \'74/java/lib/max.jar
-set scala_jar lib/scala-library.jar
-set class_dir java-classes
-set src_dir java-classes
-function javac
-  /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin/javac $argv;
-end
+#!/bin/sh
+#max_jar="C:\Program Files (x86)\Cycling '74\Max 7\resources\java-classes\lib\max.jar"
+#jitter_jar="C:\Program Files (x86)\Cycling '74\Max 7\resources\java-classes\lib\jitter.jar"
+#scala_jar="C:\Users\joulejang2012\Documents\Max 7\Packages\ni\lib\scala-library.jar"
+#class_dir="C:\Users\joulejang2012\Documents\Max 7\Packages\ni\java-classes"
+#src_dir="C:\Users\joulejang2012\Documents\Max 7\Packages\ni\java-classes"
+#sc=";"
 
-scalac -cp $max_jar:$src_dir -d $class_dir **.scala **.java
-javac -cp $max_jar:$scala_jar:$src_dir **.java
+scalac -classpath "C:\Program Files (x86)\Cycling '74\Max 7\resources\java-classes\lib\*;C:\Users\joulejang2012\Documents\Max 7\Packages\ni\java-classes" -d "C:\Users\joulejang2012\Documents\Max 7\Packages\ni\java-classes" java-classes/ni/*.scala java-classes/ni/*.java java-classes/util/*.java
+javac -classpath "C:\Program Files (x86)\Cycling '74\Max 7\resources\java-classes\lib\*;C:\Users\joulejang2012\Documents\Max 7\Packages\ni\lib\scala-library.jar;C:\Users\joulejang2012\Documents\Max 7\Packages\ni\java-classes" java-classes/ni/*.java java-classes/util/*.java

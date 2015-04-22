@@ -12,7 +12,7 @@ public class RefereeRunner extends MaxObject {
     ref.registerRunner(this);
 
     declareInlets(new int[] { DataTypes.ALL });
-    declareOutlets(new int[] { DataTypes.ALL, DataTypes.ALL, DataTypes.ALL });
+    declareOutlets(new int[] { DataTypes.ALL, DataTypes.ALL, DataTypes.ALL, DataTypes.ALL });
   }
 
   public void start () {
@@ -48,6 +48,10 @@ public class RefereeRunner extends MaxObject {
 
   public void fire(int outletIndex, String message) {
     outlet(outletIndex, Atom.newAtom(message));
+  }
+  
+  public void fire(int outletIndex, float f) {
+    outlet(outletIndex, Atom.newAtom(f));
   }
 
   // turns args into single string

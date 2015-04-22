@@ -1,2 +1,2 @@
-#!/Users/david/.homebrew/Cellar/fish/2.1.0/bin/fish
+#!/bin/sh
 rm -rf **.class

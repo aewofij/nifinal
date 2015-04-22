@@ -9,6 +9,7 @@ public class Referee extends MaxObject {
   final int kLeftOutlet = 0;
   final int kRightOutlet = 1;
   final int kGeneralOutlet = 2;
+  final int kProgressOutlet = 3;
 
   enum Player {
     left, right
@@ -25,6 +26,7 @@ public class Referee extends MaxObject {
 
   private PuzzleSequence puzzles;
   private Runner leftRunner, rightRunner;
+  private ProgressBar progressBar;
   private RefereeRunner refRunner;
   private Player completed = null;
   private boolean completedSuccessful;
@@ -51,6 +53,8 @@ public class Referee extends MaxObject {
   // called when a player completes a puzzle
   public void completed (boolean isLeftPlayer, boolean success) {
     if (!success) {
+	  System.out.println("prog: "+ progressBar.getProgress());
+	  refRunner.fire(kProgressOutlet, progressBar.getProgress() - 0.1f);
       punish();
     }
 
@@ -59,6 +63,8 @@ public class Referee extends MaxObject {
       completedSuccessful = success;
       return;
     } else {
+	  System.out.println("prog: "+ progressBar.getProgress());
+	  refRunner.fire(kProgressOutlet, progressBar.getProgress() + 0.1f);
       if (isLeftPlayer && completed == Player.right) {
         startTransition(success, completedSuccessful);
         completed = null;
@@ -86,6 +92,10 @@ public class Referee extends MaxObject {
     refRunner = runner;
   }
 
+  public void registerProgressBar (ProgressBar prog) {
+	progressBar = prog;
+  }
+  
   void punish () {
     refRunner.fire(kGeneralOutlet, "punish");
   }
