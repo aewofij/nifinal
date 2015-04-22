@@ -16,11 +16,16 @@ package ni {
     }
 
     def setChoicesText(choices: Map[Button, Option[String]]): PuzzleDrawer = {
+      val optionToEmpty = (optStr: Option[String]) => optStr match { 
+        case Some(s) => s
+        case None    => ""
+      }
+
       choices.foreach({ 
-        case (RedButton(), Some(text))    => fire("choice", "red", text)
-        case (BlueButton(), Some(text))   => fire("choice", "blue", text)
-        case (YellowButton(), Some(text)) => fire("choice", "yellow", text)
-        case _                            => ()
+        case (RedButton(), text)    => fire("choice", "red", optionToEmpty(text))
+        case (BlueButton(), text)   => fire("choice", "blue", optionToEmpty(text))
+        case (YellowButton(), text) => fire("choice", "yellow", optionToEmpty(text))
+        case _                      => ()
       })
       this
     }
@@ -28,6 +33,14 @@ package ni {
     def setImageURL(imageURL: String): PuzzleDrawer = {
       // TODO
       this
+    }
+
+    def reset() = {
+      this.setBackgroundColor("white")
+      this.setMainText("")
+      this.setChoicesText(Map(RedButton() -> None, 
+                              BlueButton() -> None, 
+                              YellowButton() -> None))
     }
 
     private def fire(msg: String*): Unit = {

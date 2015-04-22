@@ -61,9 +61,12 @@ public class Referee extends MaxObject {
     } else {
       if (isLeftPlayer && completed == Player.right) {
         startTransition(success, completedSuccessful);
-      }
-      if (!isLeftPlayer && completed == Player.left) {
+        completed = null;
+      } else if (!isLeftPlayer && completed == Player.left) {
         startTransition(completedSuccessful, success);
+        completed = null;
+      } else {
+        // same player completed multiple times; hmmm
       }
     }
   }
@@ -89,25 +92,31 @@ public class Referee extends MaxObject {
 
   void startTransition (boolean leftSuccess, boolean rightSuccess) {
     if (leftSuccess && rightSuccess) {
-      sendTransition();
+      Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
+      puzzles.next();
+      sendTransition(oldPuzzles, true);
     } else {
       // TODO: fix this && business
       if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
         // Immediately restart.
-        endTransition();
+        System.out.println("Restarting puzzle.");
+        // endTransition();
+        sendTransition(puzzles.current(), false);
       } else {
-        sendTransition();
+        Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
+        puzzles.next();
+        sendTransition(oldPuzzles, false);
       }
     }
   }
 
   // egh, sorry about weird naming; this one is actually sending transition
   //   events when we know that we can advance.
-  void sendTransition () {
-    Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
+  void sendTransition (Tuple<AbstractPuzzle, AbstractPuzzle> fromPuzzles, boolean success) {
+    // Tuple<AbstractPuzzle, AbstractPuzzle> oldPuzzles = puzzles.current();
     // Advance the sequence, checking if we're at the end.
-    if (puzzles.next() != null) {
-      fireTransition(oldPuzzles, false);
+    if (fromPuzzles != null) {
+      fireTransition(fromPuzzles, success);
       List<Tuple<String, Integer>> cmds = puzzles.currentCommands();
       for (final Tuple<String, Integer> cmd : cmds) {
         // TODO: delays
@@ -135,6 +144,8 @@ public class Referee extends MaxObject {
 
   void fireTransition (Tuple<AbstractPuzzle, AbstractPuzzle> fromPuzzles, boolean isSuccess) {
     if (fromPuzzles != null) {
+      System.out.println("Firing transition; is success? " + isSuccess);
+
       String toLeft = isSuccess ? fromPuzzles.fst.successTransition
                                 : fromPuzzles.fst.failureTransition;
       String toRight = isSuccess ? fromPuzzles.snd.successTransition

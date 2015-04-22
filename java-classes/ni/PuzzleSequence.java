@@ -37,64 +37,76 @@ public class PuzzleSequence {
        redResponse       : String - the text to display as the red button's answer, or empty ("") if no text
        blueResponse      : String - the text to display as the blue button's answer, or empty ("") if no text
        yellowResponse    : String - the text to display as the yellow button's answer, or empty ("") if no text
+       isRepeatable      : Boolean - true if puzzle can be repeated, else false
     */
+
+    this.addPair(PressButtonPuzzle.make(new RedButton(),  "1.mov", "garbage.mov", false),
+                 PressButtonPuzzle.make(new BlueButton(), "1.mov", "garbage.mov", false));
+
+
     this.addPair(GenericMultipleChoicePuzzle.make("What do I do?", 
                                                   "wheel.mov",
                                                   "garbage.mov",
                                                   new RedButton(), 
                                                   "correct",
                                                   "incorrect",
-                                                  "also wrong"),
+                                                  "also wrong",
+                                                  true),
                  GenericMultipleChoicePuzzle.make("What do I do?", 
                                                   "wheel.mov",
                                                   "garbage.mov",
                                                   new RedButton(), 
                                                   "correct",
                                                   "incorrect",
-                                                  "also wrong"));
+                                                  "also wrong",
+                                                  true));
+    this.addPair(PressButtonPuzzle.make(new RedButton(), "wheel.mov", "garbage.mov", true),
+                 PressButtonPuzzle.make(new BlueButton(), "wheel.mov", "garbage.mov", true));
     this.addPair(GenericMultipleChoicePuzzle.make("Where do I go?", 
                                                   null,
                                                   "garbage.mov",
                                                   new BlueButton(), 
                                                   "North",
                                                   "East",
-                                                  "West"),
+                                                  "West",
+                                                  true),
                   GenericMultipleChoicePuzzle.make("Where do I go?", 
                                                   null,
                                                   "123.mov",
                                                   new BlueButton(), 
                                                   "North",
                                                   "East",
-                                                  "West"),
+                                                  "West",
+                                                  true),
                   makeCommand("ai_video garbage.mov", 1000));
-    this.addPair(GenericMultipleChoicePuzzle.make("Where do I go2?", 
-                                                  null,
-                                                  "garbage.mov",
-                                                  new BlueButton(), 
-                                                  "North",
-                                                  "East",
-                                                  "West"),
-                  GenericMultipleChoicePuzzle.make("Where do I go2?", 
-                                                  null,
-                                                  "123.mov",
-                                                  new BlueButton(), 
-                                                  "North",
-                                                  "East",
-                                                  "West"));
-    this.addPair(GenericMultipleChoicePuzzle.make("Press blue.", 
-                                                  null,
-                                                  "garbage.mov",
-                                                  new BlueButton(), 
-                                                  "North",
-                                                  "East",
-                                                  "West"),
-                 GenericMultipleChoicePuzzle.make("Press yellow.", 
-                                                  null,
-                                                  "123.mov",
-                                                  new YellowButton(), 
-                                                  "North",
-                                                  "East",
-                                                  "West"));
+    // this.addPair(GenericMultipleChoicePuzzle.make("Where do I go2?", 
+    //                                               null,
+    //                                               "garbage.mov",
+    //                                               new BlueButton(), 
+    //                                               "North",
+    //                                               "East",
+    //                                               "West"),
+    //               GenericMultipleChoicePuzzle.make("Where do I go2?", 
+    //                                               null,
+    //                                               "123.mov",
+    //                                               new BlueButton(), 
+    //                                               "North",
+    //                                               "East",
+    //                                               "West"));
+    // this.addPair(GenericMultipleChoicePuzzle.make("Press blue.", 
+    //                                               null,
+    //                                               "garbage.mov",
+    //                                               new BlueButton(), 
+    //                                               "North",
+    //                                               "East",
+    //                                               "West"),
+    //              GenericMultipleChoicePuzzle.make("Press yellow.", 
+    //                                               null,
+    //                                               "123.mov",
+    //                                               new YellowButton(), 
+    //                                               "North",
+    //                                               "East",
+    //                                               "West"));
 
     index = 0;
   }

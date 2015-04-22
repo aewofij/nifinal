@@ -7,5 +7,5 @@ function javac
   /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin/javac $argv;
 end
 
-scalac -cp $max_jar:$src_dir:. -d $class_dir **.scala **.java
-javac -cp $max_jar:$scala_jar:$src_dir:. **.java
+scalac -cp $max_jar:$src_dir -d $class_dir **.scala **.java
+javac -cp $max_jar:$scala_jar:$src_dir **.java

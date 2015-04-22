@@ -22,12 +22,18 @@ public abstract class AbstractPuzzle {
 
   // Called when puzzle is succesfully completed.
   public void successful () {
+    if (this.runner != null) {
+      System.out.println("Succeeded on " + (this.runner.isLeft ? "left" : "right") + " runner");
+    }
     runner.finishedPuzzle(true);
     this.end();
   }
 
   // Called when puzzle is succesfully failed.
   public void failure () {
+    if (this.runner != null) {
+      System.out.println("Failed on " + (this.runner.isLeft ? "left" : "right") + " runner");
+    }
     runner.finishedPuzzle(false);
     this.end();
   }

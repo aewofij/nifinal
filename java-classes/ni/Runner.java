@@ -16,7 +16,7 @@ public class Runner extends MaxObject {
   private State state;
   // Active puzzle.
   private AbstractPuzzle puzzle;
-  private boolean isLeft;
+  public boolean isLeft;
 
   public Runner (Atom[] args) {
     declareInlets(new int[] { DataTypes.ALL });
