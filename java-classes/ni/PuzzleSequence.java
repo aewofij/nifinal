@@ -44,12 +44,12 @@ public class PuzzleSequence {
     //              PressButtonPuzzle.make(new BlueButton(), "1.mov", "garbage.mov", false));
 
     this.addPair(GenericTextInputPuzzle.make("What is your name?", 
-                                             ".+", 
+                                             "[A-Z][a-z]+", 
                                              null, 
                                              null,
                                              false),
                  GenericTextInputPuzzle.make("What is your name?", 
-                                             ".+", 
+                                             "[A-Z][a-z]+", 
                                              null, 
                                              null,
                                              false));

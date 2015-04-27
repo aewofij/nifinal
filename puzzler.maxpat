@@ -234,7 +234,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 689.0, 557.0, 1026.0, 465.0 ],
+						"rect" : [ 658.0, 469.0, 1026.0, 656.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -250,7 +250,7 @@
 						"toptoolbarpinned" : 0,
 						"righttoolbarpinned" : 0,
 						"bottomtoolbarpinned" : 0,
-						"toolbars_unpinned_last_save" : 0,
+						"toolbars_unpinned_last_save" : 8,
 						"tallnewobj" : 0,
 						"boxanimatetime" : 200,
 						"enablehscroll" : 1,
@@ -263,6 +263,73 @@
 						"subpatcher_template" : "",
 						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-21",
+									"linecount" : 5,
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "jit_matrix", "" ],
+									"patching_rect" : [ 410.833252, 450.0, 121.0, 76.0 ],
+									"style" : "",
+									"text" : "jit.gl.videoplane combined-ctx @position 0.5 0 0 @transform_reset 2 @scale 0.5 0.5 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-18",
+									"linecount" : 5,
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "jit_matrix", "" ],
+									"patching_rect" : [ 32.666626, 450.0, 116.0, 76.0 ],
+									"style" : "",
+									"text" : "jit.gl.videoplane combined-ctx @position -0.5 0 0 @transform_reset 2 @scale 0.5 0.5 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-14",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "jit_gl_texture", "", "" ],
+									"patching_rect" : [ 410.833252, 420.0, 294.0, 22.0 ],
+									"style" : "",
+									"text" : "jit.gl.node combined-ctx @name right-ctx @capture 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-13",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "jit_gl_texture", "", "" ],
+									"patching_rect" : [ 32.666626, 420.0, 286.0, 22.0 ],
+									"style" : "",
+									"text" : "jit.gl.node combined-ctx @name left-ctx @capture 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-11",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "", "bang", "" ],
+									"patching_rect" : [ 32.666626, 541.0, 187.0, 22.0 ],
+									"style" : "",
+									"text" : "jit.world combined-ctx @enable 1"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-20",
 									"maxclass" : "newobj",
@@ -5801,32 +5868,6 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-33",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "bang", "" ],
-									"patching_rect" : [ 447.5, 122.0, 159.0, 22.0 ],
-									"style" : "",
-									"text" : "jit.world right-ctx @enable 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-14",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "bang", "" ],
-									"patching_rect" : [ 53.5, 126.199982, 151.0, 22.0 ],
-									"style" : "",
-									"text" : "jit.world left-ctx @enable 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-38",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -6600,6 +6641,43 @@
 													"source" : [ "obj-9", 0 ]
 												}
 
+											}
+ ],
+										"styles" : [ 											{
+												"name" : "numberB-1",
+												"default" : 												{
+													"accentcolor" : [ 0.011765, 0.396078, 0.752941, 1.0 ]
+												}
+,
+												"parentstyle" : "",
+												"multi" : 0
+											}
+, 											{
+												"name" : "numberG-1",
+												"default" : 												{
+													"accentcolor" : [ 0.0, 0.533333, 0.168627, 1.0 ]
+												}
+,
+												"parentstyle" : "",
+												"multi" : 0
+											}
+, 											{
+												"name" : "numberGold-1",
+												"default" : 												{
+													"accentcolor" : [ 0.764706, 0.592157, 0.101961, 1.0 ]
+												}
+,
+												"parentstyle" : "",
+												"multi" : 0
+											}
+, 											{
+												"name" : "numberR-1",
+												"default" : 												{
+													"accentcolor" : [ 0.784314, 0.145098, 0.023529, 1.0 ]
+												}
+,
+												"parentstyle" : "",
+												"multi" : 0
 											}
  ]
 									}
@@ -8114,6 +8192,24 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-18", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-13", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-21", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-35", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
@@ -8576,7 +8672,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 952.0, 761.0, 502.0, 124.0 ],
+						"rect" : [ 1362.0, 431.0, 502.0, 124.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 1,
 						"default_fontsize" : 12.0,
@@ -10416,14 +10512,14 @@
 		"dependency_cache" : [ 			{
 				"name" : "videomarkers.js",
 				"bootpath" : "~/Documents/Max 7/Packages/ni/javascript",
-				"patcherrelativepath" : "./javascript/./javascript/./javascript",
+				"patcherrelativepath" : "./javascript/./javascript/./javascript/./javascript/./javascript/./javascript/./javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "puzzle-drawer.maxpat",
 				"bootpath" : "~/Documents/Max 7/Packages/ni/patches",
-				"patcherrelativepath" : "./patches/./patches/./patches",
+				"patcherrelativepath" : "./patches/./patches/./patches/./patches/./patches/./patches/./patches",
 				"type" : "JSON",
 				"implicit" : 1
 			}
