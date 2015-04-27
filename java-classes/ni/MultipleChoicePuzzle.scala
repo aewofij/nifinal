@@ -11,6 +11,7 @@ package ni {
 
     // Called at start of puzzle.
     def start(): Unit = {
+      // System.out.println("Starting " + this);
       isActive = true;
 
       drawer.reset()
@@ -21,7 +22,9 @@ package ni {
 
     // Called at end of puzzle. Any teardown goes here.
     def end(): Unit = {
+      // System.out.println("Ending " + this);
       isActive = false;
+      // drawer.reset();
       // drawer.setBackgroundColor("black");
     }
   }
@@ -42,14 +45,18 @@ package ni {
       if (yellowChoice != null) {
         choiceMap = choiceMap + (YellowButton() -> Some(yellowChoice))
       }
-      var result = new GenericMultipleChoicePuzzle(text, choiceMap, Some(correctChoice))
+
+      var correctChoiceOpt = 
+        if (correctChoice != null) Some(correctChoice) 
+        else                       None
+
+      var result = new GenericMultipleChoicePuzzle(text, choiceMap, correctChoiceOpt)
       result.successTransition = successTransition
       result.failureTransition = failureTransition
       result.isRepeatable = isRepeatable
       return result
     }
   }
-
 
   class PressButtonPuzzle(var toPress: Button) 
       extends GenericMultipleChoicePuzzle("", Map(), Some(toPress)) {
@@ -68,8 +75,8 @@ package ni {
             .setBackgroundColor(buttonString)
             .setMainText(mainText)
 
-      System.out.println("starting " + (if (this.runner.isLeft) "left" else "right") 
-                         + " isActive? " + isActive);
+      // System.out.println("starting " + (if (this.runner.isLeft) "left" else "right") 
+      //                    + " isActive? " + isActive);
     }
   }
 
@@ -96,8 +103,8 @@ package ni {
     var isActive: Boolean
 
     def receiveInput(event: String): Unit = {
-      System.out.println("receiveInput " + (if (this.runner.isLeft) "left" else "right") 
-                         + " " + event + " isActive? " + isActive);
+      // System.out.println("receiveInput " + (if (this.runner.isLeft) "left" else "right") 
+      //                    + " " + event + " isActive? " + isActive);
       if (isActive) {
         (toButtonPress(event), correctChoice) match {
           case (Some(button), Some(answer)) => respondToButton(button, answer)

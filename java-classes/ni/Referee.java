@@ -38,7 +38,7 @@ public class Referee extends MaxObject {
   }
 
   public void start () {
-    System.out.println("Starting Referee...");
+    // System.out.println("Starting Referee...");
 
     leftRunner.reset();
     rightRunner.reset();
@@ -99,7 +99,7 @@ public class Referee extends MaxObject {
       // TODO: fix this && business
       if (puzzles.current().fst.isRepeatable && puzzles.current().snd.isRepeatable) {
         // Immediately restart.
-        System.out.println("Restarting puzzle.");
+        // System.out.println("Restarting puzzle.");
         // endTransition();
         sendTransition(puzzles.current(), false);
       } else {
@@ -144,7 +144,7 @@ public class Referee extends MaxObject {
 
   void fireTransition (Tuple<AbstractPuzzle, AbstractPuzzle> fromPuzzles, boolean isSuccess) {
     if (fromPuzzles != null) {
-      System.out.println("Firing transition; is success? " + isSuccess);
+      // System.out.println("Firing transition; is success? " + isSuccess);
 
       String toLeft = isSuccess ? fromPuzzles.fst.successTransition
                                 : fromPuzzles.fst.failureTransition;
@@ -188,7 +188,7 @@ public class Referee extends MaxObject {
   void win() {
     leftRunner.won();
     rightRunner.won();
-    System.out.println("Everyone wins.");
+    // System.out.println("Everyone wins.");
   }
 
   public boolean getReadySetG() {

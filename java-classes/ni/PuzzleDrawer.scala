@@ -2,23 +2,24 @@ package ni {
   class PuzzleDrawer(puzzle: AbstractPuzzle) {
     def setBackgroundColor(red: Double, blue: Double, green: Double): PuzzleDrawer = {
       fire("background", red.toString, blue.toString, green.toString)
-      this
     }
 
     def setBackgroundColor(color: String): PuzzleDrawer = {
       fire("background", color)
-      this
     }
 
     def setMainText(text: String): PuzzleDrawer = {
-      fire("maintext", text)
-      this
+      if (text == null || text.length == 0) {
+        fire("maintext", "none")
+      } else {
+        fire("maintext", "string", text)
+      }
     }
 
     def setChoicesText(choices: Map[Button, Option[String]]): PuzzleDrawer = {
       val optionToEmpty = (optStr: Option[String]) => optStr match { 
-        case Some(s) => s
-        case None    => ""
+        case Some(s) => "string " ++ s
+        case None    => "none"
       }
 
       choices.foreach({ 
@@ -35,19 +36,26 @@ package ni {
       this
     }
 
-    def reset() = {
-      this.setBackgroundColor("white")
-      this.setMainText("")
-      this.setChoicesText(Map(RedButton() -> None, 
-                              BlueButton() -> None, 
-                              YellowButton() -> None))
+    def setResponseText(text: Option[String]): PuzzleDrawer = text match {
+      case Some(str) if str.length > 0 => fire("textinput", "string", str)
+      case _                           => fire("textinput", "none")
     }
 
-    private def fire(msg: String*): Unit = {
+    def reset() = {
+      setBackgroundColor("white")
+      setMainText(null)
+      setChoicesText(Map(RedButton()    -> None, 
+                         BlueButton()   -> None, 
+                         YellowButton() -> None))
+      setResponseText(None)
+    }
+
+    private def fire(msg: String*): PuzzleDrawer = {
       val outMsg = "drawpuzzle " + interject(msg.toList, " ").fold("")((a, b) => a + b)
       if (puzzle.runner != null) {
         puzzle.runner.firePatchControl(outMsg)
       }
+      this
     }
 
     private def interject[T](l: List[T], item: T): List[T] = {

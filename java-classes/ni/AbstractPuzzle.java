@@ -8,7 +8,7 @@ public abstract class AbstractPuzzle {
   // Called at start of puzzle.
   public abstract void start ();
 
-  // Called at end of puzzle. Any teardown goes here.
+  // Called when user submits a response. (Any teardown goes here.)
   public abstract void end ();
 
   // Receives real-time user events - button presses, video markers, other runner data...
@@ -23,19 +23,19 @@ public abstract class AbstractPuzzle {
   // Called when puzzle is succesfully completed.
   public void successful () {
     if (this.runner != null) {
-      System.out.println("Succeeded on " + (this.runner.isLeft ? "left" : "right") + " runner");
+      // System.out.println("Succeeded on " + (this.runner.isLeft ? "left" : "right") + " runner");
     }
-    runner.finishedPuzzle(true);
     this.end();
+    runner.finishedPuzzle(true);
   }
 
   // Called when puzzle is succesfully failed.
   public void failure () {
     if (this.runner != null) {
-      System.out.println("Failed on " + (this.runner.isLeft ? "left" : "right") + " runner");
+      // System.out.println("Failed on " + (this.runner.isLeft ? "left" : "right") + " runner");
     }
-    runner.finishedPuzzle(false);
     this.end();
+    runner.finishedPuzzle(false);
   }
   
 }

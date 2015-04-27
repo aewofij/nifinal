@@ -40,10 +40,19 @@ public class PuzzleSequence {
        isRepeatable      : Boolean - true if puzzle can be repeated, else false
     */
 
-    this.addPair(PressButtonPuzzle.make(new RedButton(),  "1.mov", "garbage.mov", false),
-                 PressButtonPuzzle.make(new BlueButton(), "1.mov", "garbage.mov", false));
+    // this.addPair(PressButtonPuzzle.make(new RedButton(),  "1.mov", "garbage.mov", false),
+    //              PressButtonPuzzle.make(new BlueButton(), "1.mov", "garbage.mov", false));
 
-
+    this.addPair(GenericTextInputPuzzle.make("What is your name?", 
+                                             ".+", 
+                                             null, 
+                                             null,
+                                             false),
+                 GenericTextInputPuzzle.make("What is your name?", 
+                                             ".+", 
+                                             null, 
+                                             null,
+                                             false));
     this.addPair(GenericMultipleChoicePuzzle.make("What do I do?", 
                                                   "wheel.mov",
                                                   "garbage.mov",
@@ -61,7 +70,8 @@ public class PuzzleSequence {
                                                   "also wrong",
                                                   true));
     this.addPair(PressButtonPuzzle.make(new RedButton(), "wheel.mov", "garbage.mov", true),
-                 PressButtonPuzzle.make(new BlueButton(), "wheel.mov", "garbage.mov", true));
+                 PressButtonPuzzle.make(new BlueButton(), "wheel.mov", "garbage.mov", true),
+                 makeCommandList(new Tuple<String, Integer>("warning start", 0)));
     this.addPair(GenericMultipleChoicePuzzle.make("Where do I go?", 
                                                   null,
                                                   "garbage.mov",
@@ -70,7 +80,7 @@ public class PuzzleSequence {
                                                   "East",
                                                   "West",
                                                   true),
-                  GenericMultipleChoicePuzzle.make("Where do I go?", 
+                 GenericMultipleChoicePuzzle.make("Where do I go?", 
                                                   null,
                                                   "123.mov",
                                                   new BlueButton(), 
@@ -78,7 +88,25 @@ public class PuzzleSequence {
                                                   "East",
                                                   "West",
                                                   true),
-                  makeCommand("ai_video garbage.mov", 1000));
+                  makeCommandList(new Tuple<String, Integer>("ai_video garbage.mov", 1000)));
+    this.addPair(GenericMultipleChoicePuzzle.make("What did you do?", 
+                                                  null,
+                                                  "garbage.mov",
+                                                  new BlueButton(), 
+                                                  "I messed up",
+                                                  "I messed up",
+                                                  "I messed up",
+                                                  true),
+                 GenericMultipleChoicePuzzle.make("What did you do?", 
+                                                  null,
+                                                  "garbage.mov",
+                                                  new BlueButton(), 
+                                                  "I messed up",
+                                                  "I messed up",
+                                                  "I messed up",
+                                                  true),
+                 makeCommandList(new Tuple<String, Integer>("warning stop", 0),
+                                 new Tuple<String, Integer>("crisis start", 0)));
     // this.addPair(GenericMultipleChoicePuzzle.make("Where do I go2?", 
     //                                               null,
     //                                               "garbage.mov",
@@ -155,6 +183,14 @@ public class PuzzleSequence {
   private List<Tuple<String, Integer>> makeCommand(String cmd, int delay) {
     List<Tuple<String, Integer>> result = new ArrayList<Tuple<String, Integer>>();
     result.add(new Tuple<String, Integer>(cmd, delay));
+    return result;
+  }
+
+  private List<Tuple<String, Integer>> makeCommandList(Tuple<String, Integer>... cmdEvents) {
+    List<Tuple<String, Integer>> result = new ArrayList<Tuple<String, Integer>>();
+    for (Tuple<String, Integer> evt : cmdEvents) {
+      result.add(evt);
+    }
     return result;
   }
 }
