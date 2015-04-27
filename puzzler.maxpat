@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 34.0, 769.0, 602.0, 337.0 ],
+		"rect" : [ 493.0, 701.0, 602.0, 337.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -234,7 +234,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 658.0, 469.0, 1026.0, 656.0 ],
+						"rect" : [ 658.0, 469.0, 774.0, 656.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -284,7 +284,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_matrix", "" ],
-									"patching_rect" : [ 32.666626, 450.0, 116.0, 76.0 ],
+									"patching_rect" : [ 32.666626, 450.0, 118.0, 76.0 ],
 									"style" : "",
 									"text" : "jit.gl.videoplane combined-ctx @position -0.5 0 0 @transform_reset 2 @scale 0.5 0.5 1"
 								}
@@ -10512,19 +10512,56 @@
 		"dependency_cache" : [ 			{
 				"name" : "videomarkers.js",
 				"bootpath" : "~/Documents/Max 7/Packages/ni/javascript",
-				"patcherrelativepath" : "./javascript/./javascript/./javascript/./javascript/./javascript/./javascript/./javascript",
+				"patcherrelativepath" : "./javascript/./javascript/./javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "puzzle-drawer.maxpat",
 				"bootpath" : "~/Documents/Max 7/Packages/ni/patches",
-				"patcherrelativepath" : "./patches/./patches/./patches/./patches/./patches/./patches/./patches",
+				"patcherrelativepath" : "./patches/./patches/./patches",
 				"type" : "JSON",
 				"implicit" : 1
 			}
  ],
-		"embedsnapshot" : 0
+		"embedsnapshot" : 0,
+		"styles" : [ 			{
+				"name" : "numberB-1",
+				"default" : 				{
+					"accentcolor" : [ 0.011765, 0.396078, 0.752941, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "numberG-1",
+				"default" : 				{
+					"accentcolor" : [ 0.0, 0.533333, 0.168627, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "numberGold-1",
+				"default" : 				{
+					"accentcolor" : [ 0.764706, 0.592157, 0.101961, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+, 			{
+				"name" : "numberR-1",
+				"default" : 				{
+					"accentcolor" : [ 0.784314, 0.145098, 0.023529, 1.0 ]
+				}
+,
+				"parentstyle" : "",
+				"multi" : 0
+			}
+ ]
 	}
 
 }
